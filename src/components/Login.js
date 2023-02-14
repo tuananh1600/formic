@@ -10,23 +10,20 @@ const Login = () => {
     setTypePass(typePass === "password" ? "text" : "password");
   };
   const listAccount = useSelector((state) => state.addAccount.listAccount);
-  console.log(listAccount);
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (listAccount.length === 0) {
+    let check = 0;
+    listAccount?.forEach((item) => {
+      if (account === item.account && pass === item.password) {
+        check++;
+      }
+    });
+    if (check > 0) {
+      alert("Đăng nhập thành công");
+    } else if (check === 0 && account.length > 0 && pass.length > 0) {
       alert("Đăng nhập thất bại");
     } else {
-      let check = [];
-      listAccount.forEach((item) => {
-        if (account === item.account && pass === item.password) {
-          check.push(item)
-        }
-      });
-      if (check.length > 0) {
-        alert("Đăng nhập thành công");
-      } else {
-        alert("Đăng nhập thất bại");
-      }
+      alert("Bạn cần nhập đủ thông tin");
     }
   };
   return (
